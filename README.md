@@ -244,6 +244,79 @@ Specialized agents implement tasks while maintaining progress updates and an aud
 - `/pm:clean` - Archive completed work
 - `/pm:search` - Search across all content
 
+## Epic Sync 脚本详解
+
+### 工作原理
+
+Epic Sync 脚本 (`epic_sync.py`) 是 CCPM 系统的核心组件，负责将本地的 Epic 和 Task 文件结构同步到 GitHub Issues。它实现了从本地 Markdown 文件到 GitHub Issues 的完整映射和同步。
+
+### 脚本功能
+
+1. **Epic Issue 创建**
+   - 读取 `epic.md` 文件的 frontmatter 和内容
+   - 智能提取标题（优先使用 `name` 字段，其次 `title` 字段，最后从内容提取 H1 标题）
+   - 创建带有 `[EPIC]` 前缀和 `epic` 标签的 GitHub Issue
+
+2. **批量 Task Issues 创建**
+   - 扫描 Epic 目录下的所有 `.md` 文件（除 `epic.md`）
+   - 为每个任务文件创建对应的 GitHub Issue
+   - 自动关联到父 Epic Issue
+   - 添加 `task` 标签
+
+3. **本地文件管理**
+   - 将任务文件重命名为对应的 GitHub Issue 编号（如 `101.md` → `5.md`）
+   - 在文件 frontmatter 中添加 `github_issue_number` 字段
+   - 保持文件内容和元数据的完整性
+
+4. **双向同步更新**
+   - 在本地 `epic.md` 文件末尾追加任务列表
+   - 同步更新远程 Epic Issue 的描述
+   - 创建 `github-mapping.md` 映射文件记录文件名变更
+
+### 使用方法
+
+```bash
+# 激活虚拟环境
+source venv/bin/activate
+
+# 同步指定的 Epic 到 GitHub
+python .trae/scripts/pm/epic_sync.py <epic-name>
+
+# 例如：同步 simple-flask-app Epic
+python .trae/scripts/pm/epic_sync.py simple-flask-app
+```
+
+### 前置条件
+
+1. **环境配置**：确保 `.env` 文件中已配置 `GITHUB_TOKEN` 和 `GITHUB_REPO`
+2. **文件结构**：Epic 目录包含 `epic.md` 文件和任务 `.md` 文件
+3. **依赖安装**：运行 `pip install -r requirements.txt` 安装所需依赖
+
+### 文件结构示例
+
+```
+simple-flask-app/
+├── epic.md              # Epic 主文件
+├── 101.md              # 任务文件 1
+├── 102.md              # 任务文件 2
+└── ...
+
+# 同步后变为：
+simple-flask-app/
+├── epic.md              # 更新了任务列表
+├── 5.md                # 重命名后的任务文件（对应 Issue #5）
+├── 6.md                # 重命名后的任务文件（对应 Issue #6）
+├── github-mapping.md    # 映射关系记录
+└── ...
+```
+
+### 输出结果
+
+- **GitHub Issues**：创建 Epic Issue 和相关联的 Task Issues
+- **本地文件**：重命名任务文件并更新元数据
+- **映射文件**：记录原始文件名与 Issue 编号的对应关系
+- **同步更新**：Epic 文件和 GitHub Issue 都包含最新的任务列表
+
 ## The Parallel Execution System
 
 ### Issues Aren't Atomic
@@ -377,6 +450,47 @@ Teams using this system report:
 # Check overall status
 /pm:epic-show memory-system
 ```
+
+## Trae Code PM - Python工具集
+
+为了提高开发效率和自动化程度，我们开发了Python版本的CCPM工具集，专为Trae AI IDE优化。
+
+### 🚀 PRD创建工具 (`prd_new.py`)
+
+自动化创建产品需求文档，实现原 `/pm:prd-new` 命令的所有功能：
+
+```bash
+# 交互式创建PRD（推荐）
+python prd_new.py user-authentication
+
+# 快速创建PRD（非交互模式）
+python prd_new.py payment-system --non-interactive
+```
+
+**主要特性：**
+- ✅ 输入验证（kebab-case格式检查）
+- ✅ 重复文件检查和确认
+- ✅ 自动创建目录结构
+- ✅ 交互式问答收集需求
+- ✅ 非交互模式支持
+- ✅ 标准化PRD模板
+- ✅ 前置元数据（frontmatter）
+- ✅ 时间戳记录
+
+### 📋 开发路线图
+
+**已完成 ✅**
+- [x] PRD创建工具
+- [x] 输入验证和错误处理
+- [x] 非交互模式
+
+**开发中 🔄**
+- [ ] PRD解析工具 (`prd_parse.py`)
+- [ ] Epic创建和管理
+- [ ] 任务管理工具
+- [ ] GitHub集成
+
+详细文档请参考：[TRAE_CODE_PM.md](TRAE_CODE_PM.md)
 
 ## Get Started Now
 
