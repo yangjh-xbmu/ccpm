@@ -7,6 +7,7 @@ allowed-tools: Bash, Read, Write, LS, Task
 Launch parallel agents to work on epic tasks in a shared branch.
 
 ## Usage
+
 ```
 /pm:epic-start <epic_name>
 ```
@@ -14,6 +15,7 @@ Launch parallel agents to work on epic tasks in a shared branch.
 ## Quick Check
 
 1. **Verify epic exists:**
+
    ```bash
    test -f .claude/epics/$ARGUMENTS/epic.md || echo "❌ Epic not found. Run: /pm:prd-parse $ARGUMENTS"
    ```
@@ -23,14 +25,17 @@ Launch parallel agents to work on epic tasks in a shared branch.
    If missing: "❌ Epic not synced. Run: /pm:epic-sync $ARGUMENTS first"
 
 3. **Check for branch:**
+
    ```bash
    git branch -a | grep "epic/$ARGUMENTS"
    ```
 
 4. **Check for uncommitted changes:**
+
    ```bash
    git status --porcelain
    ```
+
    If output is not empty: "❌ You have uncommitted changes. Please commit or stash them before starting an epic"
 
 ## Instructions
@@ -63,11 +68,13 @@ fi
 ### 2. Identify Ready Issues
 
 Read all task files in `.claude/epics/$ARGUMENTS/`:
+
 - Parse frontmatter for `status`, `depends_on`, `parallel` fields
 - Check GitHub issue status if needed
 - Build dependency graph
 
 Categorize issues:
+
 - **Ready**: No unmet dependencies, not started
 - **Blocked**: Has unmet dependencies
 - **In Progress**: Already being worked on
@@ -76,6 +83,7 @@ Categorize issues:
 ### 3. Analyze Ready Issues
 
 For each ready issue without analysis:
+
 ```bash
 # Check for analysis
 if ! test -f .claude/epics/$ARGUMENTS/{issue}-analysis.md; then
@@ -100,6 +108,7 @@ Launching agents in branch: epic/$ARGUMENTS
 ```
 
 Use Task tool to launch each stream:
+
 ```yaml
 Task:
   description: "Issue #{issue} Stream {X}"
@@ -154,6 +163,7 @@ branch: epic/$ARGUMENTS
 ### 6. Monitor and Coordinate
 
 Set up monitoring:
+
 ```bash
 echo "
 Agents launched successfully!
@@ -175,6 +185,7 @@ Merge when complete:
 ### 7. Handle Dependencies
 
 As agents complete streams:
+
 - Check if any blocked issues are now ready
 - Launch new agents for newly-ready work
 - Update execution-status.md
@@ -207,6 +218,7 @@ Monitor with: /pm:epic-status $ARGUMENTS
 ## Error Handling
 
 If agent launch fails:
+
 ```
 ❌ Failed to start Agent-{id}
   Issue: #{issue}
@@ -217,6 +229,7 @@ Continue with other agents? (yes/no)
 ```
 
 If uncommitted changes are found:
+
 ```
 ❌ You have uncommitted changes. Please commit or stash them before starting an epic.
 
@@ -230,6 +243,7 @@ To stash changes:
 ```
 
 If branch creation fails:
+
 ```
 ❌ Cannot create branch
   {git error message}

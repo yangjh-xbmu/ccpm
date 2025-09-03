@@ -1,0 +1,28 @@
+# 包含文档文件
+include README.md
+include USAGE_GUIDE.md
+include API_REFERENCE.md
+include CHANGELOG.md
+include PROJECT_SUMMARY.md
+include LICENSE
+
+# 包含配置文件
+include requirements.txt
+include setup.py
+
+# 包含所有Python文件
+recursive-include aipm *.py
+
+# 排除测试文件和临时文件
+exclude test_*.py
+exclude *_test.py
+exclude *.pyc
+exclude *.pyo
+exclude *~
+exclude .DS_Store
+
+# 排除开发文件
+exclude .gitignore
+exclude .flake8
+exclude .mypy.ini
+exclude pytest.ini

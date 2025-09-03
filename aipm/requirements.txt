@@ -1,0 +1,12 @@
+# AIPM核心依赖
+# 注意：这些是可选依赖，核心功能不依赖外部包
+
+# AI功能依赖（可选）
+google-generativeai>=0.3.0
+
+# 开发依赖（可选）
+# pytest>=6.0
+# pytest-cov>=2.0
+# black>=22.0
+# flake8>=4.0
+# mypy>=0.900

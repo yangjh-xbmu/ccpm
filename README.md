@@ -11,7 +11,7 @@
 &nbsp;
 [![Star this repo](https://img.shields.io/badge/★-Star%20this%20repo-e7b10b)](https://github.com/automazeio/ccpm)
 
-### Claude Code workflow to ship ~~faster~~ _better_ using spec-driven development, GitHub issues, Git worktrees, and mutiple AI agents running in parallel.
+### Claude Code workflow to ship ~~faster~~ _better_ using spec-driven development, GitHub issues, Git worktrees, and mutiple AI agents running in parallel
 
 Stop losing context. Stop blocking on tasks. Stop shipping bugs. This battle-tested system turns PRDs into epics, epics into GitHub issues, and issues into production code – with full traceability at every step.
 
@@ -39,6 +39,7 @@ Stop losing context. Stop blocking on tasks. Stop shipping bugs. This battle-tes
 ## Background
 
 Every team struggles with the same problems:
+
 - **Context evaporates** between sessions, forcing constant re-discovery
 - **Parallel work creates conflicts** when multiple developers touch the same code
 - **Requirements drift** as verbal decisions override written specs
@@ -87,24 +88,28 @@ Most Claude Code workflows operate in isolation – a single developer working w
 By using GitHub Issues as our database, we unlock something powerful:
 
 ### 🤝 **True Team Collaboration**
+
 - Multiple Claude instances can work on the same project simultaneously
 - Human developers see AI progress in real-time through issue comments
 - Team members can jump in anywhere – the context is always visible
 - Managers get transparency without interrupting flow
 
 ### 🔄 **Seamless Human-AI Handoffs**
+
 - AI can start a task, human can finish it (or vice versa)
 - Progress updates are visible to everyone, not trapped in chat logs
 - Code reviews happen naturally through PR comments
 - No "what did the AI do?" meetings
 
 ### 📈 **Scalable Beyond Solo Work**
+
 - Add team members without onboarding friction
 - Multiple AI agents working in parallel on different issues
 - Distributed teams stay synchronized automatically
 - Works with existing GitHub workflows and tools
 
 ### 🎯 **Single Source of Truth**
+
 - No separate databases or project management tools
 - Issue state is the project state
 - Comments are the audit trail
@@ -154,6 +159,7 @@ No shortcuts. No assumptions. No regrets.
 ```bash
 /pm:prd-new feature-name
 ```
+
 Launches comprehensive brainstorming to create a Product Requirements Document capturing vision, user stories, success criteria, and constraints.
 
 **Output:** `.claude/prds/feature-name.md`
@@ -163,6 +169,7 @@ Launches comprehensive brainstorming to create a Product Requirements Document c
 ```bash
 /pm:prd-parse feature-name
 ```
+
 Transforms PRD into a technical implementation plan with architectural decisions, technical approach, and dependency mapping.
 
 **Output:** `.claude/epics/feature-name/epic.md`
@@ -172,6 +179,7 @@ Transforms PRD into a technical implementation plan with architectural decisions
 ```bash
 /pm:epic-decompose feature-name
 ```
+
 Breaks epic into concrete, actionable tasks with acceptance criteria, effort estimates, and parallelization flags.
 
 **Output:** `.claude/epics/feature-name/[task].md`
@@ -183,6 +191,7 @@ Breaks epic into concrete, actionable tasks with acceptance criteria, effort est
 # Or for confident workflows:
 /pm:epic-oneshot feature-name
 ```
+
 Pushes epic and tasks to GitHub as issues with appropriate labels and relationships.
 
 ### 5. Execution Phase
@@ -192,6 +201,7 @@ Pushes epic and tasks to GitHub as issues with appropriate labels and relationsh
 /pm:issue-sync 1234   # Push progress updates
 /pm:next             # Get next priority task
 ```
+
 Specialized agents implement tasks while maintaining progress updates and an audit trail.
 
 ## Command Reference
@@ -200,9 +210,11 @@ Specialized agents implement tasks while maintaining progress updates and an aud
 > Type `/pm:help` for a concise command summary
 
 ### Initial Setup
+
 - `/pm:init` - Install dependencies and configure GitHub
 
 ### PRD Commands
+
 - `/pm:prd-new` - Launch brainstorming for new product requirement
 - `/pm:prd-parse` - Convert PRD to implementation epic
 - `/pm:prd-list` - List all PRDs
@@ -210,6 +222,7 @@ Specialized agents implement tasks while maintaining progress updates and an aud
 - `/pm:prd-status` - Show PRD implementation status
 
 ### Epic Commands
+
 - `/pm:epic-decompose` - Break epic into task files
 - `/pm:epic-sync` - Push epic and tasks to GitHub
 - `/pm:epic-oneshot` - Decompose and sync in one command
@@ -220,6 +233,7 @@ Specialized agents implement tasks while maintaining progress updates and an aud
 - `/pm:epic-refresh` - Update epic progress from tasks
 
 ### Issue Commands
+
 - `/pm:issue-show` - Display issue and sub-issues
 - `/pm:issue-status` - Check issue status
 - `/pm:issue-start` - Begin work with specialized agent
@@ -229,6 +243,7 @@ Specialized agents implement tasks while maintaining progress updates and an aud
 - `/pm:issue-edit` - Edit issue details
 
 ### Workflow Commands
+
 - `/pm:next` - Show next priority issue with epic context
 - `/pm:status` - Overall project dashboard
 - `/pm:standup` - Daily standup report
@@ -236,10 +251,12 @@ Specialized agents implement tasks while maintaining progress updates and an aud
 - `/pm:in-progress` - List work in progress
 
 ### Sync Commands
+
 - `/pm:sync` - Full bidirectional sync with GitHub
 - `/pm:import` - Import existing GitHub issues
 
 ### Maintenance Commands
+
 - `/pm:validate` - Check system integrity
 - `/pm:clean` - Archive completed work
 - `/pm:search` - Search across all content
@@ -338,10 +355,12 @@ All running **simultaneously** in the same worktree.
 ### The Math of Velocity
 
 **Traditional Approach:**
+
 - Epic with 3 issues
 - Sequential execution
 
 **This System:**
+
 - Same epic with 3 issues
 - Each issue splits into ~4 parallel streams
 - **12 agents working simultaneously**
@@ -351,11 +370,13 @@ We're not assigning agents to issues. We're **leveraging multiple agents** to sh
 ### Context Optimization
 
 **Traditional single-thread approach:**
+
 - Main conversation carries ALL the implementation details
 - Context window fills with database schemas, API code, UI components
 - Eventually hits context limits and loses coherence
 
 **Parallel agent approach:**
+
 - Main thread stays clean and strategic
 - Each agent handles its own context in isolation
 - Implementation details never pollute the main conversation
@@ -366,11 +387,13 @@ Your main conversation becomes the conductor, not the orchestra.
 ### GitHub vs Local: Perfect Separation
 
 **What GitHub Sees:**
+
 - Clean, simple issues
 - Progress updates
 - Completion status
 
 **What Actually Happens Locally:**
+
 - Issue #1234 explodes into 5 parallel agents
 - Agents coordinate through Git commits
 - Complex orchestration hidden from view
@@ -397,29 +420,36 @@ GitHub doesn't need to know HOW the work got done – just that it IS done.
 ## Key Features & Benefits
 
 ### 🧠 **Context Preservation**
+
 Never lose project state again. Each epic maintains its own context, agents read from `.claude/context/`, and updates locally before syncing.
 
 ### ⚡ **Parallel Execution**
+
 Ship faster with multiple agents working simultaneously. Tasks marked `parallel: true` enable conflict-free concurrent development.
 
 ### 🔗 **GitHub Native**
+
 Works with tools your team already uses. Issues are the source of truth, comments provide history, and there is no dependency on the Projects API.
 
 ### 🤖 **Agent Specialization**
+
 Right tool for every job. Different agents for UI, API, and database work. Each reads requirements and posts updates automatically.
 
 ### 📊 **Full Traceability**
+
 Every decision is documented. PRD → Epic → Task → Issue → Code → Commit. Complete audit trail from idea to production.
 
 ### 🚀 **Developer Productivity**
+
 Focus on building, not managing. Intelligent prioritization, automatic context loading, and incremental sync when ready.
 
 ## Proven Results
 
 Teams using this system report:
+
 - **89% less time** lost to context switching – you'll use `/compact` and `/clear` a LOT less
 - **5-8 parallel tasks** vs 1 previously – editing/testing multiple files at the same time
-- **75% reduction** in bug rates – due to the breaking down features into detailed tasks 
+- **75% reduction** in bug rates – due to the breaking down features into detailed tasks
 - **Up to 3x faster** feature delivery – based on feature size and complexity
 
 ## Example Flow
@@ -468,6 +498,7 @@ python prd_new.py payment-system --non-interactive
 ```
 
 **主要特性：**
+
 - ✅ 输入验证（kebab-case格式检查）
 - ✅ 重复文件检查和确认
 - ✅ 自动创建目录结构
@@ -480,11 +511,13 @@ python prd_new.py payment-system --non-interactive
 ### 📋 开发路线图
 
 **已完成 ✅**
+
 - [x] PRD创建工具
 - [x] 输入验证和错误处理
 - [x] 非交互模式
 
 **开发中 🔄**
+
 - [ ] PRD解析工具 (`prd_parse.py`)
 - [ ] Epic创建和管理
 - [ ] 任务管理工具
@@ -497,16 +530,20 @@ python prd_new.py payment-system --non-interactive
 ### Quick Setup (2 minutes)
 
 1. **Clone this repository into your project**:
+
    ```bash
    cd path/to/your/project/
    git clone https://github.com/automazeio/ccpm.git .
    ```
+
    > ⚠️ **IMPORTANT**: If you already have a `.claude` directory, clone this repository to a different directory and copy the contents of the cloned `.claude` directory to your project's `.claude` directory.
 
 2. **Initialize the PM system**:
+
    ```bash
    /pm:init
    ```
+
    This command will:
    - Install GitHub CLI (if needed)
    - Authenticate with GitHub
@@ -515,17 +552,18 @@ python prd_new.py payment-system --non-interactive
    - Update .gitignore
 
 3. **Create `CLAUDE.md`** with your repository information
+
    ```bash
    /init include rules from .claude/CLAUDE.md
    ```
+
    > If you already have a `CLAUDE.md` file, run: `/re-init` to update it with important rules from `.claude/CLAUDE.md`.
 
 4. **Prime the system**:
+
    ```bash
    /context:create
    ```
-
-
 
 ### Start Your First Feature
 
@@ -549,17 +587,20 @@ Watch as structured planning transforms into shipped code.
 ## Technical Notes
 
 ### GitHub Integration
+
 - Uses **gh-sub-issue extension** for proper parent-child relationships
 - Falls back to task lists if extension not installed
 - Epic issues track sub-task completion automatically
 - Labels provide additional organization (`epic:feature`, `task:feature`)
 
 ### File Naming Convention
+
 - Tasks start as `001.md`, `002.md` during decomposition
 - After GitHub sync, renamed to `{issue-id}.md` (e.g., `1234.md`)
 - Makes it easy to navigate: issue #1234 = file `1234.md`
 
 ### Design Decisions
+
 - Intentionally avoids GitHub Projects API complexity
 - All commands operate on local files first for speed
 - Synchronization with GitHub is explicit and controlled
@@ -576,7 +617,6 @@ If Claude Code PM helps your team ship better software:
 
 - ⭐ **[Star this repository](https://github.com/your-username/claude-code-pm)** to show your support
 - 🐦 **[Follow @aroussi on X](https://x.com/aroussi)** for updates and tips
-
 
 ---
 

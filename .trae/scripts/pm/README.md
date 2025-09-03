@@ -5,31 +5,38 @@
 ## 脚本列表
 
 ### 1. epic_sync.py
+
 **功能**: 将本地 Epic 和任务同步到 GitHub Issues
 
 **用法**:
+
 ```bash
 python epic_sync.py <epic_name>
 ```
 
 **示例**:
+
 ```bash
 python epic_sync.py simple-flask-app
 ```
 
 ### 2. issue_close.py
+
 **功能**: 手动更新任务状态，标记任务完成并关闭对应的 GitHub Issue
 
 **用法**:
+
 ```bash
 python issue_close.py <issue_number> [completion_notes]
 ```
 
 **参数说明**:
+
 - `issue_number`: 要关闭的 GitHub Issue 编号
 - `completion_notes`: 可选的完成说明
 
 **示例**:
+
 ```bash
 # 关闭 Issue #8
 python issue_close.py 8
@@ -39,18 +46,22 @@ python issue_close.py 10 "Flask 应用已成功实现并测试通过"
 ```
 
 ### 3. epic_close.py
+
 **功能**: 关闭已完成的 Epic，更新状态并关闭对应的 GitHub Issue
 
 **用法**:
+
 ```bash
 python epic_close.py <epic_name> [completion_notes]
 ```
 
 **参数说明**:
+
 - `epic_name`: 要关闭的 Epic 名称
 - `completion_notes`: 可选的完成说明
 
 **示例**:
+
 ```bash
 # 关闭 Epic
 python epic_close.py simple-flask-app
@@ -64,25 +75,30 @@ python epic_close.py simple-flask-app "所有功能已实现并测试通过"
 在使用这些脚本之前，请确保已正确配置环境：
 
 ### 1. 安装依赖
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 2. 配置环境变量
+
 在项目根目录的 `.env` 文件中配置：
+
 ```
 GITHUB_TOKEN=your_github_token_here
 GITHUB_REPO=username/repository-name
 ```
 
 ### 3. GitHub Token 权限
+
 确保 GitHub Token 具有以下权限：
+
 - `repo` - 完整的仓库访问权限
 - `issues` - 读写 Issues 权限
 
 ## 工作流程
 
-### 典型的 CCPM 工作流程：
+### 典型的 CCPM 工作流程
 
 1. **创建 Epic 和任务**：使用 `/pm:prd-new` 和 `/pm:epic-decompose` 创建项目结构
 2. **同步到 GitHub**：使用 `epic_sync.py` 将本地文件同步到 GitHub Issues
@@ -109,7 +125,7 @@ python .trae/scripts/pm/epic_close.py simple-flask-app "所有功能已实现并
 
 ## 脚本功能详解
 
-### issue_close.py 执行的操作：
+### issue_close.py 执行的操作
 
 1. **查找本地任务文件**
    - 优先查找新命名方式：`*/{issue_number}.md`
@@ -141,7 +157,7 @@ python .trae/scripts/pm/epic_close.py simple-flask-app "所有功能已实现并
 
 ## 故障排除
 
-### 常见错误及解决方案：
+### 常见错误及解决方案
 
 1. **"未找到本地任务文件"**
    - 检查 Issue 编号是否正确
